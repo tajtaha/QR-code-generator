@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,7 +16,7 @@
       type="image/x-icon"
       sizes="96x96"
     />
-    <link rel="stylesheet" href="/output.css" />
+    <link rel="stylesheet" href="./output.css" />
 
     <title>QR code generator | devChallenges.io</title>
 
@@ -29,25 +29,50 @@
   <body
     class="flex flex-col items-center justify-center bg-[url('resources/qa-bg.jpg')] h-screen bg-cover bg-center"
   >
-    <header class="">
-      <img src="resources/Logo.svg" alt="Logo" />
+    <header class="" id="header">
+      <img src="resources/Logo.svg" alt="Logo" id="logo-image" class="" />
     </header>
     <main class="mt-10">
-      <div
-        class="flex justify-between items-center bg-[#030616] border-2 rounded-[20px] border-[#263FA9] w-165 h-17"
-      >
-        <input
-          type="url"
-          placeholder="Enter an url"
-          class="text-white placeholder-white w-130 h-10 ml-7 mr-3 focus:outline-none"
-        />
-        <button
-          type="submit"
-          class="text-white w-35 h-13 mr-1.75 bg-[#263FA9] rounded-xl"
+      <div id="first-page" class="">
+        <div
+          id="first-main-div"
+          class="flex justify-between items-center bg-[#030616] border-2 rounded-[20px] border-[#263FA9] w-165 h-17"
         >
-          QR code
-        </button>
+          <input
+            type="url"
+            placeholder="Enter an url"
+            id="input"
+            class="text-white placeholder-white w-130 h-10 ml-7 mr-3 focus:outline-none"
+          />
+          <button
+            id="create-button"
+            class="text-white w-35 h-13 mr-1.75 bg-[#263FA9] rounded-xl"
+          >
+            QR code
+          </button>
+        </div>
+      </div>
+
+      <div id="second-page" class="hidden">
+        <div class="h-60 w-60 bg-[#F8FAFC1A] rounded-full"></div>
+        <div class="mt-8">
+          <button
+            id="download-button"
+            class="bg-[#263FA9] text-white w-35 h-13 mr-1.75 rounded-xl"
+          >
+            Download
+            <img src="resources/Load_circle_duotone.svg" alt="download logo" />
+          </button>
+          <button
+            id="share-button"
+            class="bg-[#263FA9] text-white w-35 h-13 mr-1.75 rounded-xl"
+          >
+            Share <img src="resources/link_alt.svg" alt="share logo" />
+          </button>
+        </div>
       </div>
     </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
