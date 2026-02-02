@@ -54,24 +54,34 @@
       </div>
 
       <div id="second-page" class="hidden">
-        <div class="h-60 w-60 bg-[#F8FAFC1A] rounded-full"></div>
+        <div
+          class="flex justify-center items-center h-80 w-80 bg-[#F8FAFC1A] rounded-full"
+        >
+          <img id="qr-image" alt="QR Code" class="rounded-2xl" />
+        </div>
         <div class="mt-8">
           <button
             id="download-button"
-            class="bg-[#263FA9] text-white w-35 h-13 mr-1.75 rounded-xl"
+            class="bg-[#263FA9] text-white w-40 h-13 mr-1.75 rounded-xl flex items-center"
           >
             Download
-            <img src="resources/Load_circle_duotone.svg" alt="download logo" />
+            <img
+              src="resources/Load_circle_duotone.svg"
+              alt="download logo"
+              class=""
+            />
           </button>
           <button
             id="share-button"
-            class="bg-[#263FA9] text-white w-35 h-13 mr-1.75 rounded-xl"
+            class="bg-[#263FA9] text-white w-30 h-13 mr-1.75 rounded-xl ml-5 flex items-center"
           >
             Share <img src="resources/link_alt.svg" alt="share logo" />
           </button>
         </div>
       </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
     <script src="script.js"></script>
   </body>
