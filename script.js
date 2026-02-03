@@ -4,7 +4,10 @@ const secondPage = document.querySelector("#second-page");
 const logoImage = document.querySelector("#logo-image");
 const header = document.querySelector("#header");
 const input = document.querySelector("#input");
-const qrImage = document.getElementById("qr-image");
+const qrImage = document.querySelector("#qr-image");
+const downloadButton = document.querySelector("#download-button");
+
+let qrcodeUrl = "";
 
 createButton.addEventListener("click", function () {
   const inputValue = input.value.trim();
@@ -29,9 +32,17 @@ createButton.addEventListener("click", function () {
     })
       .then(function (dataUrl1) {
         qrImage.src = dataUrl1;
+        qrcodeUrl = dataUrl1;
       })
       .catch(function (err) {
         alert(`error: ${err}`);
       });
   }
+});
+
+downloadButton.addEventListener("click", function () {
+  const a = document.createElement("a");
+  a.href = qrImage.src;
+  a.download = "qrcode.png";
+  a.click();
 });

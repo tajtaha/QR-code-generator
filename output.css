@@ -201,6 +201,9 @@
   .ml-7 {
     margin-left: calc(var(--spacing) * 7);
   }
+  .ml-8 {
+    margin-left: calc(var(--spacing) * 8);
+  }
   .ml-10 {
     margin-left: calc(var(--spacing) * 10);
   }
@@ -243,6 +246,12 @@
   .w-40 {
     width: calc(var(--spacing) * 40);
   }
+  .w-45 {
+    width: calc(var(--spacing) * 45);
+  }
+  .w-50 {
+    width: calc(var(--spacing) * 50);
+  }
   .w-80 {
     width: calc(var(--spacing) * 80);
   }
@@ -266,14 +275,14 @@
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
+  .cursor-pointer {
+    cursor: pointer;
+  }
   .resize {
     resize: both;
   }
   .flex-col {
     flex-direction: column;
-  }
-  .flex-row {
-    flex-direction: row;
   }
   .items-center {
     align-items: center;
@@ -284,11 +293,17 @@
   .justify-center {
     justify-content: center;
   }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
+  .gap-5 {
+    gap: calc(var(--spacing) * 5);
+  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
-  }
-  .rounded-3xl {
-    border-radius: var(--radius-3xl);
   }
   .rounded-\[20px\] {
     border-radius: 20px;
@@ -328,8 +343,11 @@
   .bg-center {
     background-position: center;
   }
-  .align-middle {
-    vertical-align: middle;
+  .p-20 {
+    padding: calc(var(--spacing) * 20);
+  }
+  .pl-10 {
+    padding-left: calc(var(--spacing) * 10);
   }
   .text-white {
     color: var(--color-white);
