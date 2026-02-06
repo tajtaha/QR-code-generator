@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create QR codes instantly for links, text, and more. Fast, free, and easy QR code generator with downloadable high-quality results."
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,23 +34,31 @@
     class="flex flex-col items-center justify-center bg-[url('resources/qa-bg.jpg')] h-screen bg-cover bg-center"
   >
     <header class="" id="header">
-      <img src="resources/Logo.svg" alt="Logo" id="logo-image" class="" />
+      <img
+        src="resources/Logo.svg"
+        alt="Logo"
+        id="logo-image"
+        class=""
+        fetchpriority="high"
+        width="200"
+        height="100"
+      />
     </header>
-    <main class="mt-10">
+    <main class="mt-10 w-full max-w-2xl px-4" id="main-parent">
       <div id="first-page" class="">
         <div
           id="first-main-div"
-          class="flex justify-between items-center bg-[#030616] border-2 rounded-[20px] border-[#263FA9] w-165 h-17"
+          class="flex justify-between items-center bg-[#030616] border-2 rounded-[20px] border-[#263FA9] h-16 w-full"
         >
           <input
             type="url"
             placeholder="Enter an url"
             id="input"
-            class="text-white placeholder-white w-130 h-10 ml-7 mr-3 focus:outline-none"
+            class="text-white placeholder-white pl-6 mr-3 ml-3 focus:outline-none h-10 w-full"
           />
           <button
             id="create-button"
-            class="cursor-pointer text-white w-35 h-13 mr-1.75 bg-[#263FA9] rounded-xl hover:bg-[#375bf5]"
+            class="cursor-pointer text-white mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-55"
           >
             QR code
           </button>
@@ -81,7 +93,7 @@
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="qrcode.min.js"></script>
 
     <script src="script.js"></script>
   </body>

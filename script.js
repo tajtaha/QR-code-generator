@@ -6,6 +6,8 @@ const header = document.querySelector("#header");
 const input = document.querySelector("#input");
 const qrImage = document.querySelector("#qr-image");
 const downloadButton = document.querySelector("#download-button");
+const shareButton = document.querySelector("#share-button");
+const mainParent = document.querySelector("#main-parent");
 
 let qrcodeUrl = "";
 
@@ -25,6 +27,7 @@ createButton.addEventListener("click", function () {
       "mt-4",
     );
     firstPage.classList.add("hidden");
+    mainParent.classList.remove("w-full", "max-w-2xl", "px-4");
     secondPage.classList.remove("hidden");
     QRCode.toDataURL(inputValue, {
       width: 240,
@@ -43,6 +46,18 @@ createButton.addEventListener("click", function () {
 downloadButton.addEventListener("click", function () {
   const a = document.createElement("a");
   a.href = qrImage.src;
-  a.download = "qrcode.png";
+  a.download = "QRCode.png";
   a.click();
+});
+
+shareButton.addEventListener("click", async function () {
+  const response = await fetch(qrImage.src);
+  const blob = await response.blob();
+
+  const file = new File([blob], "image.png", { type: blob.type });
+
+  await navigator.share({
+    files: [file],
+    title: "Share image",
+  });
 });
