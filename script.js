@@ -7,6 +7,8 @@ const input = document.querySelector("#input");
 const qrImage = document.querySelector("#qr-image");
 const downloadButton = document.querySelector("#download-button");
 const shareButton = document.querySelector("#share-button");
+const backButton = document.querySelector("#back-button");
+const clearButton = document.querySelector("#clear-button");
 const mainParent = document.querySelector("#main-parent");
 
 let qrcodeUrl = "";
@@ -60,4 +62,34 @@ shareButton.addEventListener("click", async function () {
     files: [file],
     title: "Share image",
   });
+});
+
+backButton.addEventListener("click", function () {
+  logoImage.classList.remove("w-28", "h-28");
+  header.classList.remove(
+    "absolute",
+    "top-0",
+    "left-1/2",
+    "transform",
+    "-translate-x-1/2",
+    "mt-4",
+  );
+  firstPage.classList.remove("hidden");
+  mainParent.classList.add("w-full", "max-w-2xl", "px-4");
+  secondPage.classList.add("hidden");
+  clearButton.classList.add("hidden");
+  input.value = "";
+});
+
+input.addEventListener("input", function () {
+  if (input.value.trim() !== "") {
+    clearButton.classList.remove("hidden");
+  } else {
+    clearButton.classList.add("hidden");
+  }
+});
+
+clearButton.addEventListener("click", function () {
+  input.value = "";
+  clearButton.classList.add("hidden");
 });

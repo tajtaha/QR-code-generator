@@ -51,14 +51,22 @@
           class="flex justify-between items-center bg-[#030616] border-2 rounded-[20px] border-[#263FA9] h-16 w-full"
         >
           <input
-            type="url"
+            type="text"
             placeholder="Enter an url"
             id="input"
-            class="text-white placeholder-white pl-6 mr-3 ml-3 focus:outline-none h-10 w-full"
+            class="flex-1 text-white placeholder-white pl-6 mr-3 ml-3 focus:outline-none h-10"
           />
+
+          <button
+            id="clear-button"
+            class="text-white cursor-pointer w-7 h-7 bg-transparent mr-1 hidden"
+          >
+            <img src="resources/remove.svg" alt="remove logo" class="w-4 h-4" />
+          </button>
+
           <button
             id="create-button"
-            class="cursor-pointer text-white mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-55"
+            class="cursor-pointer text-white mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-40 shrink-0"
           >
             QR code
           </button>
@@ -79,7 +87,7 @@
             Download
             <img
               src="resources/Load_circle_duotone.svg"
-              alt="download logo"
+              alt="download icon"
               class=""
             />
           </button>
@@ -87,9 +95,20 @@
             id="share-button"
             class="cursor-pointer flex items-center bg-[#263FA9] text-white w-40 h-13 mr-1.75 rounded-xl ml-5 pl-10 gap-3 hover:bg-[#375bf5] transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
           >
-            Share <img src="resources/link_alt.svg" alt="share logo" />
+            Share <img src="resources/link_alt.svg" alt="share icon" />
           </button>
         </div>
+        <button
+          id="back-button"
+          class="cursor-pointer flex items-center justify-center bg-gray-600 hover:bg-gray-500 text-white w-24 h-10 mt-6 ml-36 rounded-xl gap-3 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+        >
+          Back
+          <img
+            src="resources/left-chevron.svg"
+            alt="back icon"
+            class="w-4 h-4"
+          />
+        </button>
       </div>
     </main>
 
