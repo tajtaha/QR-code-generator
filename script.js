@@ -4,14 +4,46 @@ const secondPage = document.querySelector("#second-page");
 const logoImage = document.querySelector("#logo-image");
 const header = document.querySelector("#header");
 const input = document.querySelector("#input");
-const qrImage = document.querySelector("#qr-image");
+const qrCanvas = document.querySelector("#qr-canvas");
+const qrMaskCanvas = document.querySelector("#qr-mask");
+const qrCtx = qrCanvas.getContext("2d");
+const qrMaskCtx = qrMaskCanvas.getContext("2d");
 const downloadButton = document.querySelector("#download-button");
 const shareButton = document.querySelector("#share-button");
 const backButton = document.querySelector("#back-button");
 const clearButton = document.querySelector("#clear-button");
 const mainParent = document.querySelector("#main-parent");
+let animationId;
+let t = 0;
 
-let qrcodeUrl = "";
+function startGradientAnimation() {
+  cancelAnimationFrame(animationId);
+
+  function animate() {
+    qrCtx.clearRect(0, 0, 240, 240);
+
+    const x1 = 120 + Math.cos(t) * 120;
+    const y1 = 120 + Math.sin(t) * 120;
+    const x2 = 120 - Math.cos(t) * 120;
+    const y2 = 120 - Math.sin(t) * 120;
+
+    const gradient = qrCtx.createLinearGradient(x1, y1, x2, y2);
+    gradient.addColorStop(0, "#6a5cff");
+    gradient.addColorStop(1, "#00ffd5");
+
+    qrCtx.fillStyle = gradient;
+    qrCtx.fillRect(0, 0, 240, 240);
+
+    qrCtx.globalCompositeOperation = "destination-in";
+    qrCtx.drawImage(qrMaskCanvas, 0, 0);
+    qrCtx.globalCompositeOperation = "source-over";
+
+    t += 0.01;
+    animationId = requestAnimationFrame(animate);
+  }
+
+  animate();
+}
 
 createButton.addEventListener("click", function () {
   const inputValue = input.value.trim();
@@ -31,36 +63,61 @@ createButton.addEventListener("click", function () {
     firstPage.classList.add("hidden");
     mainParent.classList.remove("w-full", "max-w-2xl", "px-4");
     secondPage.classList.remove("hidden");
-    QRCode.toDataURL(inputValue, {
-      width: 240,
-      margin: 2,
-    })
-      .then(function (dataUrl1) {
-        qrImage.src = dataUrl1;
-        qrcodeUrl = dataUrl1;
-      })
-      .catch(function (err) {
-        alert(`error: ${err}`);
-      });
+    QRCode.toCanvas(
+      qrMaskCanvas,
+      inputValue,
+      {
+        width: 240,
+        margin: 2,
+        errorCorrectionLevel: "H",
+        color: {
+          dark: "#000000",
+          light: "#ffffff",
+        },
+      },
+      function (err) {
+        if (err) {
+          alert(err);
+          return;
+        }
+
+        const imgData = qrMaskCtx.getImageData(
+          0,
+          0,
+          qrMaskCanvas.width,
+          qrMaskCanvas.height,
+        );
+        const data = imgData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          if (data[i] === 255 && data[i + 1] === 255 && data[i + 2] === 255) {
+            data[i + 3] = 0;
+          }
+        }
+        qrMaskCtx.putImageData(imgData, 0, 0);
+
+        startGradientAnimation();
+      },
+    );
   }
 });
 
 downloadButton.addEventListener("click", function () {
   const a = document.createElement("a");
-  a.href = qrImage.src;
+  a.href = qrCanvas.toDataURL("image/png");
   a.download = "QRCode.png";
   a.click();
 });
 
 shareButton.addEventListener("click", async function () {
-  const response = await fetch(qrImage.src);
-  const blob = await response.blob();
+  const blob = await new Promise((resolve) =>
+    qrCanvas.toBlob(resolve, "image/png"),
+  );
 
-  const file = new File([blob], "image.png", { type: blob.type });
+  const file = new File([blob], "QRCode.png", { type: "image/png" });
 
   await navigator.share({
     files: [file],
-    title: "Share image",
+    title: "Share QR Code",
   });
 });
 
@@ -79,6 +136,8 @@ backButton.addEventListener("click", function () {
   secondPage.classList.add("hidden");
   clearButton.classList.add("hidden");
   input.value = "";
+  cancelAnimationFrame(animationId);
+  qrCtx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
 });
 
 input.addEventListener("input", function () {

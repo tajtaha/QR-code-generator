@@ -74,11 +74,29 @@
       </div>
 
       <div id="second-page" class="hidden">
+        <button
+          id="settings-button"
+          class="cursor-pointer rounded-bl-md rounded-tl-md w-5 h-12 bg-gray-400 hover:bg-gray-500 fixed right-0 top-1/2 transform -translate-y-1/2"
+        >
+          ◀
+        </button>
+        <div
+          id="settings-div"
+          class="h-full w-full max-w-1/3 fixed right-0 top-1/2 transform -translate-y-1/2 bg-amber-300"
+        ></div>
         <div
           class="flex justify-center items-center h-80 w-80 bg-[#F8FAFC1A] rounded-full ml-8"
         >
-          <img id="qr-image" alt="QR Code" class="rounded-2xl" />
+          <canvas
+            id="qr-canvas"
+            width="240"
+            height="240"
+            class="rounded-2xl"
+          ></canvas>
+
+          <canvas id="qr-mask" width="240" height="240" class="hidden"></canvas>
         </div>
+
         <div class="mt-8 flex items-center">
           <button
             id="download-button"
