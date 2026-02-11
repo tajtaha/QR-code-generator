@@ -12,6 +12,9 @@ const downloadButton = document.querySelector("#download-button");
 const shareButton = document.querySelector("#share-button");
 const backButton = document.querySelector("#back-button");
 const clearButton = document.querySelector("#clear-button");
+const openSettingsButton = document.querySelector("#open-settings-button");
+const closeSettingsButton = document.querySelector("#close-settings-button");
+const settingsDiv = document.querySelector("#settings-div");
 const mainParent = document.querySelector("#main-parent");
 let animationId;
 let t = 0;
@@ -151,4 +154,29 @@ input.addEventListener("input", function () {
 clearButton.addEventListener("click", function () {
   input.value = "";
   clearButton.classList.add("hidden");
+});
+
+openSettingsButton.addEventListener("click", function () {
+  settingsDiv.classList.remove("translate-x-full");
+  closeSettingsButton.classList.remove("hidden");
+  openSettingsButton.classList.add("hidden");
+  settingsDiv.classList.add(
+    "transition-transform",
+    "duration-500",
+    "ease-in-out",
+  );
+});
+
+closeSettingsButton.addEventListener("click", function () {
+  function handleTransitionEnd() {
+    closeSettingsButton.classList.add("hidden");
+    openSettingsButton.classList.remove("hidden");
+
+    // remove this listener after it fires
+    settingsDiv.removeEventListener("transitionend", handleTransitionEnd);
+  }
+
+  settingsDiv.addEventListener("transitionend", handleTransitionEnd);
+  settingsDiv.classList.add("translate-x-full");
+  settingsDiv.classList.remove("transition-transform");
 });
