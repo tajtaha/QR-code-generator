@@ -82,14 +82,51 @@
         </button>
         <div
           id="settings-div"
-          class="h-full w-1/3 bg-white/20 fixed right-0 top-0 translate-x-full"
+          class="h-full w-1/3 bg-white/20 fixed right-0 top-0 translate-x-full text-center"
         >
+          <h2 class="text-white text-3xl mt-5 mb-5">Customize your QrCode</h2>
           <button
             id="close-settings-button"
             class="hidden cursor-pointer rounded-bl-md rounded-tl-md w-5 h-12 bg-gray-400 hover:bg-gray-500 absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2"
           >
             ▶
           </button>
+
+          <div class="grid grid-cols-3 gap-3">
+            <button
+              data-type="gradient"
+              class="preset-btn"
+              data-c1="#6a5cff"
+              data-c2="#00ffd5"
+            >
+              <img src="resources/QRCode.png" alt="QRCode image" />
+            </button>
+            <button
+              data-type="gradient"
+              class="preset-btn"
+              data-c1="#ff512f"
+              data-c2="#dd2476"
+            >
+              <img src="resources/QRCode(1).webp" alt="QRCode image" />
+            </button>
+            <button
+              data-type="gradient"
+              class="preset-btn"
+              data-c1="#11998e"
+              data-c2="#38ef7d"
+            >
+              <img src="resources/QRCode(2).webp" alt="QRCode image" />
+            </button>
+            <button data-type="solid" class="preset-btn" data-c1="#000000">
+              <img src="resources/QRCode(3).webp" alt="QRCode image" />
+            </button>
+            <button data-type="solid" class="preset-btn" data-c1="#ffffff">
+              <img src="resources/QRCode(4).webp" alt="QRCode image" />
+            </button>
+            <button data-type="solid" class="preset-btn" data-c1="#dddddd">
+              <img src="resources/QRCode.webp" alt="QRCode image" />
+            </button>
+          </div>
         </div>
         <div
           class="flex justify-center items-center h-80 w-80 bg-[#F8FAFC1A] rounded-full ml-8"
