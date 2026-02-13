@@ -95,7 +95,7 @@
           <div class="grid grid-cols-3 gap-3">
             <button
               data-type="gradient"
-              class="preset-btn"
+              class="preset-button"
               data-c1="#6a5cff"
               data-c2="#00ffd5"
             >
@@ -103,7 +103,7 @@
             </button>
             <button
               data-type="gradient"
-              class="preset-btn"
+              class="preset-button"
               data-c1="#ff512f"
               data-c2="#dd2476"
             >
@@ -111,21 +111,44 @@
             </button>
             <button
               data-type="gradient"
-              class="preset-btn"
+              class="preset-button"
               data-c1="#11998e"
               data-c2="#38ef7d"
             >
               <img src="resources/QRCode(2).webp" alt="QRCode image" />
             </button>
-            <button data-type="solid" class="preset-btn" data-c1="#000000">
+            <button data-type="solid" class="preset-button" data-c1="#000000">
               <img src="resources/QRCode(3).webp" alt="QRCode image" />
             </button>
-            <button data-type="solid" class="preset-btn" data-c1="#ffffff">
+            <button data-type="solid" class="preset-button" data-c1="#ffffff">
               <img src="resources/QRCode(4).webp" alt="QRCode image" />
             </button>
-            <button data-type="solid" class="preset-btn" data-c1="#dddddd">
+            <button data-type="solid" class="preset-button" data-c1="#dddddd">
               <img src="resources/QRCode.webp" alt="QRCode image" />
             </button>
+
+            <input
+              id="logo-upload"
+              type="file"
+              accept="image/*"
+              class="hidden"
+            />
+
+            <button
+              id="upload-logo-button"
+              class="cursor-pointer text-white w-20 h-20 bg-gray-400 hover:bg-gray-300"
+            >
+              Upload logo
+            </button>
+
+            <button
+              id="opacity-button"
+              class="cursor-pointer text-white w-20 h-20 bg-gray-400 hover:bg-gray-300"
+            >
+              blur
+            </button>
+
+            <input type="text" id="qr-text" placeholder="Text on QR code" />
           </div>
         </div>
         <div
