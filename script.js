@@ -21,6 +21,7 @@ const logoUpload = document.querySelector("#logo-upload");
 const uploadLogoBtn = document.querySelector("#upload-logo-button");
 const opacityBtn = document.querySelector("#opacity-button");
 const qrTextInput = document.querySelector("#qr-text");
+const deleteButton = document.querySelector("#remove-image-button");
 
 let qrText = "";
 let bgImage = null;
@@ -68,7 +69,7 @@ function startGradientAnimation() {
 
     const totalHeight = lines.length * lineHeight;
     let startY = y - totalHeight / 2;
-    if (logoSize) startY -= logoSize / 2 + 10; // add gap above logo
+    if (logoSize) startY -= logoSize / 2 + 10;
 
     for (let line of lines) {
       ctx.fillText(line, x, startY + lineHeight / 2);
@@ -198,23 +199,64 @@ shareButton.addEventListener("click", async function () {
   await navigator.share({ files: [file], title: "Share QR Code" });
 });
 
+function closeSettings(callback) {
+  if (settingsDiv.classList.contains("translate-x-full")) {
+    if (callback) callback();
+    return;
+  }
+
+  function handleTransitionEnd() {
+    closeSettingsButton.classList.add("hidden");
+    openSettingsButton.classList.remove("hidden");
+    settingsDiv.removeEventListener("transitionend", handleTransitionEnd);
+    if (callback) callback();
+  }
+
+  settingsDiv.addEventListener("transitionend", handleTransitionEnd);
+
+  settingsDiv.classList.add("translate-x-full");
+  settingsDiv.classList.remove("transition-transform");
+}
+
+closeSettingsButton.addEventListener("click", closeSettings);
+
 backButton.addEventListener("click", function () {
-  logoImage.classList.remove("w-28", "h-28");
-  header.classList.remove(
-    "absolute",
-    "top-0",
-    "left-1/2",
-    "transform",
-    "-translate-x-1/2",
-    "mt-4",
-  );
-  firstPage.classList.remove("hidden");
-  mainParent.classList.add("w-full", "max-w-2xl", "px-4");
-  secondPage.classList.add("hidden");
-  clearButton.classList.add("hidden");
-  input.value = "";
-  cancelAnimationFrame(animationId);
-  qrCtx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+  closeSettings(() => {
+    logoImage.classList.remove("w-28", "h-28");
+    header.classList.remove(
+      "absolute",
+      "top-0",
+      "left-1/2",
+      "transform",
+      "-translate-x-1/2",
+      "mt-4",
+    );
+    firstPage.classList.remove("hidden");
+    mainParent.classList.add("w-full", "max-w-2xl", "px-4");
+    secondPage.classList.add("hidden");
+    clearButton.classList.add("hidden");
+
+    cancelAnimationFrame(animationId);
+    qrCtx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+    if (userLogoImage) {
+      userLogoImage = null;
+      bgImage = null;
+      logoUpload.value = "";
+      deleteButton.classList.add("hidden");
+    }
+
+    input.value = "";
+    qrTextInput.value = "";
+    qrText = "";
+
+    colorMode = "gradient";
+    gradientColor1 = "#6a5cff";
+    gradientColor2 = "#00ffd5";
+    solidColor = "#6a5cff";
+
+    bgOpacity = 0;
+    bgImage = null;
+  });
 });
 
 input.addEventListener("input", () => {
@@ -235,16 +277,6 @@ openSettingsButton.addEventListener("click", () => {
     "ease-in-out",
   );
 });
-closeSettingsButton.addEventListener("click", () => {
-  function handleTransitionEnd() {
-    closeSettingsButton.classList.add("hidden");
-    openSettingsButton.classList.remove("hidden");
-    settingsDiv.removeEventListener("transitionend", handleTransitionEnd);
-  }
-  settingsDiv.addEventListener("transitionend", handleTransitionEnd);
-  settingsDiv.classList.add("translate-x-full");
-  settingsDiv.classList.remove("transition-transform");
-});
 
 presetButtons.forEach((button) => {
   button.addEventListener("click", function () {
@@ -264,11 +296,15 @@ uploadLogoBtn.addEventListener("click", () => logoUpload.click());
 logoUpload.addEventListener("change", () => {
   const file = logoUpload.files[0];
   if (!file) return;
+
   const reader = new FileReader();
   reader.onload = () => {
     const img = new Image();
+    img.onload = () => {
+      userLogoImage = img;
+      deleteButton.classList.remove("hidden");
+    };
     img.src = reader.result;
-    userLogoImage = img;
   };
   reader.readAsDataURL(file);
 });
@@ -280,4 +316,10 @@ opacityBtn.addEventListener("click", () => {
 
 qrTextInput.addEventListener("input", () => {
   qrText = qrTextInput.value;
+});
+
+deleteButton.addEventListener("click", () => {
+  userLogoImage = null;
+  logoUpload.value = "";
+  deleteButton.classList.add("hidden");
 });

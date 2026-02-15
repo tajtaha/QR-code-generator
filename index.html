@@ -31,7 +31,7 @@
     </style>
   </head>
   <body
-    class="flex flex-col items-center justify-center bg-[url('resources/qa-bg.jpg')] h-screen bg-cover bg-center"
+    class="flex flex-col items-center justify-center bg-[url('resources/qa-bg.jpg')] h-screen bg-cover bg-center text-white"
   >
     <header class="" id="header">
       <img
@@ -54,19 +54,19 @@
             type="text"
             placeholder="Enter an url"
             id="input"
-            class="flex-1 text-white placeholder-white pl-6 mr-3 ml-3 focus:outline-none h-10"
+            class="flex-1 placeholder-white pl-6 mr-3 ml-3 focus:outline-none h-10"
           />
 
           <button
             id="clear-button"
-            class="text-white cursor-pointer w-7 h-7 bg-transparent mr-1 hidden"
+            class="cursor-pointer w-7 h-7 bg-transparent mr-1 hidden"
           >
             <img src="resources/remove.svg" alt="remove logo" class="w-4 h-4" />
           </button>
 
           <button
             id="create-button"
-            class="cursor-pointer text-white mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-40"
+            class="mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-40"
           >
             QR code
           </button>
@@ -82,9 +82,10 @@
         </button>
         <div
           id="settings-div"
-          class="h-full w-1/3 bg-white/20 fixed right-0 top-0 translate-x-full text-center"
+          class="h-full w-1/3 bg-gray-800 fixed right-0 top-0 translate-x-full text-center"
         >
-          <h2 class="text-white text-3xl mt-5 mb-5">Customize your QrCode</h2>
+          <h2 class="text-3xl mt-5 mb-5">Customize your QrCode</h2>
+          <hr class="mb-5" />
           <button
             id="close-settings-button"
             class="hidden cursor-pointer rounded-bl-md rounded-tl-md w-5 h-12 bg-gray-400 hover:bg-gray-500 absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2"
@@ -92,40 +93,61 @@
             ▶
           </button>
 
-          <div class="grid grid-cols-3 gap-3">
-            <button
-              data-type="gradient"
-              class="preset-button"
-              data-c1="#6a5cff"
-              data-c2="#00ffd5"
-            >
-              <img src="resources/QRCode.png" alt="QRCode image" />
-            </button>
-            <button
-              data-type="gradient"
-              class="preset-button"
-              data-c1="#ff512f"
-              data-c2="#dd2476"
-            >
-              <img src="resources/QRCode(1).webp" alt="QRCode image" />
-            </button>
-            <button
-              data-type="gradient"
-              class="preset-button"
-              data-c1="#11998e"
-              data-c2="#38ef7d"
-            >
-              <img src="resources/QRCode(2).webp" alt="QRCode image" />
-            </button>
-            <button data-type="solid" class="preset-button" data-c1="#000000">
-              <img src="resources/QRCode(3).webp" alt="QRCode image" />
-            </button>
-            <button data-type="solid" class="preset-button" data-c1="#ffffff">
-              <img src="resources/QRCode(4).webp" alt="QRCode image" />
-            </button>
-            <button data-type="solid" class="preset-button" data-c1="#dddddd">
-              <img src="resources/QRCode.webp" alt="QRCode image" />
-            </button>
+          <h3 class="">Presets</h3>
+
+          <div class="">
+            <div class="grid grid-cols-3 gap-3 mb-5">
+              <button
+                data-type="gradient"
+                class="preset-button"
+                data-c1="#6a5cff"
+                data-c2="#00ffd5"
+              >
+                <img src="resources/QRCode.png" alt="QRCode image" />
+              </button>
+              <button
+                data-type="gradient"
+                class="preset-button"
+                data-c1="#ff512f"
+                data-c2="#dd2476"
+              >
+                <img src="resources/QRCode(1).webp" alt="QRCode image" />
+              </button>
+              <button
+                data-type="gradient"
+                class="preset-button"
+                data-c1="#11998e"
+                data-c2="#38ef7d"
+              >
+                <img src="resources/QRCode(2).webp" alt="QRCode image" />
+              </button>
+              <button data-type="solid" class="preset-button" data-c1="#000000">
+                <img src="resources/QRCode(3).webp" alt="QRCode image" />
+              </button>
+              <button data-type="solid" class="preset-button" data-c1="#ffffff">
+                <img src="resources/QRCode(4).webp" alt="QRCode image" />
+              </button>
+              <button data-type="solid" class="preset-button" data-c1="#dddddd">
+                <img src="resources/QRCode.webp" alt="QRCode image" />
+              </button>
+            </div>
+            <h3>Solid Color</h3>
+
+            <div class="border-white border-2">
+              <input type="text" class="focus:outline-none" />
+              <input type="color" />
+            </div>
+            <h3>Gradient Color</h3>
+
+            <div class="border-white border-2">
+              <input type="text" class="" class="focus:outline-none" />
+              <input type="color" />
+
+              <input type="text" class="" class="focus:outline-none" />
+              <input type="color" />
+            </div>
+
+            <hr class="mb-5 mt-5" />
 
             <input
               id="logo-upload"
@@ -136,16 +158,23 @@
 
             <button
               id="upload-logo-button"
-              class="cursor-pointer text-white w-20 h-20 bg-gray-400 hover:bg-gray-300"
+              class="cursor-pointer w-20 h-10 bg-gray-400 hover:bg-gray-300"
             >
               Upload logo
             </button>
 
             <button
               id="opacity-button"
-              class="cursor-pointer text-white w-20 h-20 bg-gray-400 hover:bg-gray-300"
+              class="cursor-pointer w-20 h-10 bg-gray-400 hover:bg-gray-300"
             >
               blur
+            </button>
+
+            <button
+              id="remove-image-button"
+              class="cursor-pointer w-20 h-10 bg-gray-400 hover:bg-gray-300"
+            >
+              Remove the Image
             </button>
 
             <input type="text" id="qr-text" placeholder="Text on QR code" />
@@ -167,7 +196,7 @@
         <div class="mt-8 flex items-center">
           <button
             id="download-button"
-            class="cursor-pointer flex items-center bg-[#263FA9] text-white w-45 h-13 mr-1.75 rounded-xl pl-10 gap-3 hover:bg-[#375bf5] transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+            class="cursor-pointer flex items-center bg-[#263FA9] w-45 h-13 mr-1.75 rounded-xl pl-10 gap-3 hover:bg-[#375bf5] transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
           >
             Download
             <img
@@ -178,14 +207,14 @@
           </button>
           <button
             id="share-button"
-            class="cursor-pointer flex items-center bg-[#263FA9] text-white w-40 h-13 mr-1.75 rounded-xl ml-5 pl-10 gap-3 hover:bg-[#375bf5] transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+            class="cursor-pointer flex items-center bg-[#263FA9] w-40 h-13 mr-1.75 rounded-xl ml-5 pl-10 gap-3 hover:bg-[#375bf5] transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
           >
             Share <img src="resources/link_alt.svg" alt="share icon" />
           </button>
         </div>
         <button
           id="back-button"
-          class="cursor-pointer flex items-center justify-center bg-gray-600 hover:bg-gray-500 text-white w-24 h-10 mt-6 ml-36 rounded-xl gap-3 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+          class="cursor-pointer flex items-center justify-center bg-gray-600 hover:bg-gray-500 w-24 h-10 mt-6 ml-36 rounded-xl gap-3 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
         >
           Back
           <img
