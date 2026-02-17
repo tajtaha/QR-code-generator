@@ -53,7 +53,7 @@
           <input
             type="text"
             placeholder="Enter an url"
-            id="input"
+            id="qrcode-input"
             class="flex-1 placeholder-white pl-6 mr-3 ml-3 focus:outline-none h-10"
           />
 
@@ -66,7 +66,7 @@
 
           <button
             id="create-button"
-            class="mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-40"
+            class="cursor-pointer mr-1.25 bg-[#263FA9] rounded-xl hover:bg-[#375bf5] h-13 w-40"
           >
             QR code
           </button>
@@ -131,20 +131,53 @@
                 <img src="resources/QRCode.webp" alt="QRCode image" />
               </button>
             </div>
+
+            <hr class="mb-3 mt-5" />
+
             <h3>Solid Color</h3>
+            <div class="m-3">
+              <input
+                type="text"
+                class="focus:outline-none"
+                placeholder="Enter Hex: #000000"
+                id="solid-color-input"
+                maxlength="7"
+              />
+              <input type="color" class="w-7 h-7" id="solid-color-palette" />
 
-            <div class="border-white border-2">
-              <input type="text" class="focus:outline-none" />
-              <input type="color" />
+              <button id="solid-color-apply-button">Apply</button>
             </div>
-            <h3>Gradient Color</h3>
+            <h3 class="mb-3">Gradient Color</h3>
 
-            <div class="border-white border-2">
-              <input type="text" class="" class="focus:outline-none" />
-              <input type="color" />
+            <div class="m-2">
+              <input
+                type="text"
+                class=""
+                class="focus:outline-none"
+                placeholder="Enter Hex: #000000"
+                id="gradient-color-1-input"
+                maxlength="7"
+              />
+              <input
+                type="color"
+                class="w-7 h-7"
+                id="gradient-color-1-palette"
+              />
 
-              <input type="text" class="" class="focus:outline-none" />
-              <input type="color" />
+              <input
+                type="text"
+                class=""
+                class="focus:outline-none"
+                placeholder="Enter Hex: #000000"
+                id="gradient-color-2-input"
+                maxlength="7"
+              />
+              <input
+                type="color"
+                class="w-7 h-7"
+                id="gradient-color-2-palette"
+              />
+              <button id="gradient-color-apply-button">Apply</button>
             </div>
 
             <hr class="mb-5 mt-5" />
@@ -177,7 +210,12 @@
               Remove the Image
             </button>
 
-            <input type="text" id="qr-text" placeholder="Text on QR code" />
+            <input
+              type="text"
+              id="qr-text"
+              placeholder="Text on QR code"
+              maxlength="16"
+            />
           </div>
         </div>
         <div

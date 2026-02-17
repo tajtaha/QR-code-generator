@@ -3,7 +3,7 @@ const firstPage = document.querySelector("#first-page");
 const secondPage = document.querySelector("#second-page");
 const logoImage = document.querySelector("#logo-image");
 const header = document.querySelector("#header");
-const input = document.querySelector("#input");
+const qrcodeInput = document.querySelector("#qrcode-input");
 const qrCanvas = document.querySelector("#qr-canvas");
 const qrMaskCanvas = document.querySelector("#qr-mask");
 const qrCtx = qrCanvas.getContext("2d");
@@ -22,6 +22,23 @@ const uploadLogoBtn = document.querySelector("#upload-logo-button");
 const opacityBtn = document.querySelector("#opacity-button");
 const qrTextInput = document.querySelector("#qr-text");
 const deleteButton = document.querySelector("#remove-image-button");
+const solidColorInput = document.querySelector("#solid-color-input");
+const solidColorPalette = document.querySelector("#solid-color-palette");
+const gradientColor1Input = document.querySelector("#gradient-color-1-input");
+const gradientColor2Input = document.querySelector("#gradient-color-2-input");
+const gradientColor1Palette = document.querySelector(
+  "#gradient-color-1-palette",
+);
+const gradientColor2Palette = document.querySelector(
+  "#gradient-color-2-palette",
+);
+
+const solidColorApplyButton = document.querySelector(
+  "#solid-color-apply-button",
+);
+const gradientColorApplyButton = document.querySelector(
+  "#gradient-color-apply-button",
+);
 
 let qrText = "";
 let bgImage = null;
@@ -140,7 +157,7 @@ function startGradientAnimation() {
 }
 
 createButton.addEventListener("click", function () {
-  const inputValue = input.value.trim();
+  const inputValue = qrcodeInput.value.trim();
   if (!inputValue) return;
 
   logoImage.classList.add("w-28", "h-28");
@@ -245,7 +262,7 @@ backButton.addEventListener("click", function () {
       deleteButton.classList.add("hidden");
     }
 
-    input.value = "";
+    qrcodeInput.value = "";
     qrTextInput.value = "";
     qrText = "";
 
@@ -259,11 +276,11 @@ backButton.addEventListener("click", function () {
   });
 });
 
-input.addEventListener("input", () => {
-  clearButton.classList.toggle("hidden", input.value.trim() === "");
+qrcodeInput.addEventListener("input", () => {
+  clearButton.classList.toggle("hidden", qrcodeInput.value.trim() === "");
 });
 clearButton.addEventListener("click", () => {
-  input.value = "";
+  qrcodeInput.value = "";
   clearButton.classList.add("hidden");
 });
 
@@ -322,4 +339,76 @@ deleteButton.addEventListener("click", () => {
   userLogoImage = null;
   logoUpload.value = "";
   deleteButton.classList.add("hidden");
+});
+
+function ensureHasHash(input) {
+  input.addEventListener("input", () => {
+    if (!input.value.startsWith("#")) {
+      input.value = "#" + input.value.replace(/#/g, "");
+    }
+  });
+}
+
+ensureHasHash(solidColorInput);
+ensureHasHash(gradientColor1Input);
+ensureHasHash(gradientColor2Input);
+
+solidColorApplyButton.addEventListener("click", function () {
+  const value = solidColorInput.value.trim();
+  if (value === "") {
+    alert("Enter a number");
+  } else if (value.length < 6) {
+    alert("Please enter valid numbers");
+  } else if (!/^#[0-9A-Fa-f]{6}$/.test(value)) {
+    alert("Enter a valid hex color, e.g., #ff0000");
+    return;
+  } else {
+    solidColor = value;
+    colorMode = "solid";
+    startGradientAnimation();
+  }
+});
+
+gradientColorApplyButton.addEventListener("click", function () {
+  const value1 = gradientColor1Input.value.trim();
+  const value2 = gradientColor2Input.value.trim();
+
+  if (value1 === "") {
+    alert("Enter a number");
+  } else if (value1.length < 6) {
+    alert("Please enter valid numbers");
+  } else if (value2 === "") {
+    alert("Enter a number");
+  } else if (value2.length < 6) {
+    alert("Please enter valid numbers");
+  } else if (!/^#[0-9A-Fa-f]{6}$/.test(value1)) {
+    alert("Please Enter a valid Hex color: #000000");
+  } else if (!/^#[0-9A-Fa-f]{6}$/.test(value2)) {
+    alert("Please Enter a valid Hex color: #000000");
+  } else {
+    gradientColor1 = value1;
+    gradientColor2 = value2;
+    colorMode = "gradient";
+    startGradientAnimation();
+  }
+});
+
+solidColorPalette.addEventListener("input", function () {
+  solidColor = solidColorPalette.value;
+  colorMode = "solid";
+  startGradientAnimation();
+});
+
+gradientColor1Palette.addEventListener("input", function () {
+  gradientColor1 = gradientColor1Palette.value;
+  gradientColor2 = gradientColor2Palette.value;
+  colorMode = "gradient";
+  startGradientAnimation();
+});
+
+gradientColor2Palette.addEventListener("input", function () {
+  gradientColor1 = gradientColor1Palette.value;
+  gradientColor2 = gradientColor2Palette.value;
+  colorMode = "gradient";
+  startGradientAnimation();
 });
