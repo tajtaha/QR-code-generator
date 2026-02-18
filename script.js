@@ -1,6 +1,7 @@
 const createButton = document.querySelector("#create-button");
 const firstPage = document.querySelector("#first-page");
 const secondPage = document.querySelector("#second-page");
+const thirdPage = document.querySelector("#third-page");
 const logoImage = document.querySelector("#logo-image");
 const header = document.querySelector("#header");
 const qrcodeInput = document.querySelector("#qrcode-input");
@@ -22,6 +23,13 @@ const uploadLogoBtn = document.querySelector("#upload-logo-button");
 const opacityBtn = document.querySelector("#opacity-button");
 const qrTextInput = document.querySelector("#qr-text");
 const deleteButton = document.querySelector("#remove-image-button");
+const readerPageButton = document.querySelector("#reader-page-button");
+const readQrcodeButton = document.querySelector("#read-qrcode-button");
+const ReaderUploadInput = document.querySelector("#reader-upload-input");
+const readerCanvas = document.querySelector("#reader-canvas");
+const readerCtx = readerCanvas.getContext("2d");
+const readerResult = document.querySelector("#reader-result");
+const backToCreateQRCode = document.querySelector("#create-qrcode-button");
 const solidColorInput = document.querySelector("#solid-color-input");
 const solidColorPalette = document.querySelector("#solid-color-palette");
 const gradientColor1Input = document.querySelector("#gradient-color-1-input");
@@ -411,4 +419,75 @@ gradientColor2Palette.addEventListener("input", function () {
   gradientColor2 = gradientColor2Palette.value;
   colorMode = "gradient";
   startGradientAnimation();
+});
+
+readerPageButton.addEventListener("click", function () {
+  logoImage.classList.add("w-28", "h-28");
+  header.classList.add(
+    "absolute",
+    "top-0",
+    "left-1/2",
+    "transform",
+    "-translate-x-1/2",
+    "mt-4",
+  );
+  firstPage.classList.add("hidden");
+  mainParent.classList.remove("w-full", "max-w-2xl", "px-4");
+  thirdPage.classList.remove("hidden");
+});
+
+backToCreateQRCode.addEventListener("click", function () {
+  readerResult.textContent = "";
+  readerCtx.clearRect(0, 0, readerCanvas.width, readerCanvas.height);
+
+  logoImage.classList.remove("w-28", "h-28");
+  header.classList.remove(
+    "absolute",
+    "top-0",
+    "left-1/2",
+    "transform",
+    "-translate-x-1/2",
+    "mt-4",
+  );
+  firstPage.classList.remove("hidden");
+  mainParent.classList.add("w-full", "max-w-2xl", "px-4");
+  thirdPage.classList.add("hidden");
+});
+
+readQrcodeButton.addEventListener("click", () => {
+  ReaderUploadInput.click();
+});
+
+ReaderUploadInput.addEventListener("change", function () {
+  const file = ReaderUploadInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const image = new Image();
+    image.onload = () => {
+      readerCtx.clearRect(0, 0, readerCanvas.width, readerCanvas.height); // clear old
+      readerCanvas.width = image.width;
+      readerCanvas.height = image.height;
+      readerCtx.drawImage(image, 0, 0);
+
+      const imageData = readerCtx.getImageData(
+        0,
+        0,
+        readerCanvas.width,
+        readerCanvas.height,
+      );
+      const code = jsQR(
+        imageData.data,
+        readerCanvas.width,
+        readerCanvas.height,
+      );
+      readerResult.textContent = code
+        ? `QRCode Data: ${code.data}`
+        : "No QRCode Data";
+      ReaderUploadInput.value = ""; // allow selecting same file again
+    };
+    image.src = reader.result;
+  };
+  reader.readAsDataURL(file);
 });

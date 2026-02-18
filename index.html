@@ -71,6 +71,12 @@
             QR code
           </button>
         </div>
+        <button
+          id="reader-page-button"
+          class="cursor-pointer mt-5 absolute top-[60%] left-[47%]"
+        >
+          <u>Read QRCode</u>
+        </button>
       </div>
 
       <div id="second-page" class="hidden">
@@ -143,9 +149,18 @@
                 id="solid-color-input"
                 maxlength="7"
               />
-              <input type="color" class="w-7 h-7" id="solid-color-palette" />
+              <input
+                type="color"
+                class="w-7 h-7 m-2"
+                id="solid-color-palette"
+              />
 
-              <button id="solid-color-apply-button">Apply</button>
+              <button
+                id="solid-color-apply-button"
+                class="cursor-pointer rounded-md bg-[#263FA9] hover:bg-[#375bf5] w-20 h-20"
+              >
+                Apply
+              </button>
             </div>
             <h3 class="mb-3">Gradient Color</h3>
 
@@ -177,7 +192,12 @@
                 class="w-7 h-7"
                 id="gradient-color-2-palette"
               />
-              <button id="gradient-color-apply-button">Apply</button>
+              <button
+                id="gradient-color-apply-button"
+                class="cursor-pointer rounded-[10px] bg-[#263FA9] hover:bg-[#375bf5] w-20 h-20"
+              >
+                Apply
+              </button>
             </div>
 
             <hr class="mb-5 mt-5" />
@@ -262,9 +282,33 @@
           />
         </button>
       </div>
+
+      <div id="third-page" class="hidden">
+        <input
+          type="file"
+          id="reader-upload-input"
+          accept="image/*"
+          class="hidden"
+        />
+        <button
+          id="read-qrcode-button"
+          class="cursor-pointer w-20 h-20 bg-gray-400 hover:bg-gray-300"
+        >
+          Upload Image
+        </button>
+
+        <canvas id="reader-canvas"></canvas>
+
+        <p id="reader-result" class="text-gray-500">Result</p>
+
+        <button id="create-qrcode-button" class="cursor-pointer">
+          <u>Create QRCode</u>
+        </button>
+      </div>
     </main>
 
     <script src="qrcode.min.js"></script>
+    <script src="jsQR.js"></script>
 
     <script src="script.js"></script>
   </body>
