@@ -294,7 +294,7 @@ clearButton.addEventListener("click", () => {
 
 openSettingsButton.addEventListener("click", () => {
   settingsDiv.classList.remove("translate-x-full");
-  closeSettingsButton.classList.remove("hidden");
+  closeSettingsButton.classList.remove("hidden", "-translate-x-full");
   openSettingsButton.classList.add("hidden");
   settingsDiv.classList.add(
     "transition-transform",
@@ -466,7 +466,7 @@ ReaderUploadInput.addEventListener("change", function () {
   reader.onload = () => {
     const image = new Image();
     image.onload = () => {
-      readerCtx.clearRect(0, 0, readerCanvas.width, readerCanvas.height); // clear old
+      readerCtx.clearRect(0, 0, readerCanvas.width, readerCanvas.height);
       readerCanvas.width = image.width;
       readerCanvas.height = image.height;
       readerCtx.drawImage(image, 0, 0);
@@ -482,12 +482,87 @@ ReaderUploadInput.addEventListener("change", function () {
         readerCanvas.width,
         readerCanvas.height,
       );
-      readerResult.textContent = code
-        ? `QRCode Data: ${code.data}`
-        : "No QRCode Data";
-      ReaderUploadInput.value = ""; // allow selecting same file again
+
+      const scannedText = code?.data?.trim();
+      const urlPattern = /(?:https?:\/\/|www\.)[^\s]+/gi;
+
+      if (!scannedText) {
+        readerResult.textContent = "No QRCode Data";
+      } else {
+        readerResult.innerHTML = "";
+        let lastIndex = 0;
+        const matches = [...scannedText.matchAll(urlPattern)];
+
+        if (matches.length === 0) {
+          readerResult.textContent = scannedText;
+        } else {
+          matches.forEach((match) => {
+            const rawUrl = match[0];
+            const startIndex = match.index ?? 0;
+
+            if (startIndex > lastIndex) {
+              readerResult.appendChild(
+                document.createTextNode(
+                  scannedText.slice(lastIndex, startIndex),
+                ),
+              );
+            }
+
+            const cleanUrl = rawUrl.replace(/[),.!?]+$/, "");
+            const trailingChars = rawUrl.slice(cleanUrl.length);
+
+            const a = document.createElement("a");
+            a.href = cleanUrl.startsWith("www.")
+              ? `https://${cleanUrl}`
+              : cleanUrl;
+            a.textContent = cleanUrl;
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            a.className = "text-blue-300 underline break-all";
+            readerResult.appendChild(a);
+
+            if (trailingChars) {
+              readerResult.appendChild(document.createTextNode(trailingChars));
+            }
+
+            lastIndex = startIndex + rawUrl.length;
+          });
+
+          if (lastIndex < scannedText.length) {
+            readerResult.appendChild(
+              document.createTextNode(scannedText.slice(lastIndex)),
+            );
+          }
+        }
+      }
+      ReaderUploadInput.value = "";
     };
     image.src = reader.result;
   };
   reader.readAsDataURL(file);
 });
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    if (!createButton.classList.contains("hidden")) {
+      createButton.click();
+    }
+    if (solidColorInput.matches(":focus")) {
+      solidColorApplyButton.click();
+    }
+    if (
+      gradientColor1Input.matches(":focus") ||
+      gradientColor2Input.matches(":focus")
+    ) {
+      gradientColorApplyButton.click();
+    }
+  }
+});
+
+// copy button for results
+// another settings panel for mobile
+// some other responsive things at the end
+// barcode creator
+// barcode reader
+// enter keyevent listener
+// do the ui
