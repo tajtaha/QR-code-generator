@@ -29,6 +29,7 @@ const ReaderUploadInput = document.querySelector("#reader-upload-input");
 const readerCanvas = document.querySelector("#reader-canvas");
 const readerCtx = readerCanvas.getContext("2d");
 const readerResult = document.querySelector("#reader-result");
+const copyResultButton = document.querySelector("#copy-result-button");
 const backToCreateQRCode = document.querySelector("#create-qrcode-button");
 const solidColorInput = document.querySelector("#solid-color-input");
 const solidColorPalette = document.querySelector("#solid-color-palette");
@@ -438,6 +439,7 @@ readerPageButton.addEventListener("click", function () {
 
 backToCreateQRCode.addEventListener("click", function () {
   readerResult.textContent = "";
+  copyResultButton.classList.add("hidden");
   readerCtx.clearRect(0, 0, readerCanvas.width, readerCanvas.height);
 
   logoImage.classList.remove("w-28", "h-28");
@@ -495,6 +497,7 @@ ReaderUploadInput.addEventListener("change", function () {
 
         if (matches.length === 0) {
           readerResult.textContent = scannedText;
+          copyResultButton.classList.remove("hidden");
         } else {
           matches.forEach((match) => {
             const rawUrl = match[0];
@@ -559,10 +562,13 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+copyResultButton.addEventListener("click", function () {
+  navigator.clipboard.writeText(readerResult.textContent);
+});
+
 // copy button for results
 // another settings panel for mobile
 // some other responsive things at the end
 // barcode creator
 // barcode reader
-// enter keyevent listener
 // do the ui

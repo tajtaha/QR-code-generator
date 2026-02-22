@@ -109,7 +109,7 @@
                 data-c1="#6a5cff"
                 data-c2="#00ffd5"
               >
-                <img src="resources/QRCode.png" alt="QRCode image" />
+                <img src="resources/QRCode.webp" alt="QRCode image" />
               </button>
               <button
                 data-type="gradient"
@@ -133,8 +133,8 @@
               <button data-type="solid" class="preset-button" data-c1="#ffffff">
                 <img src="resources/QRCode(4).webp" alt="QRCode image" />
               </button>
-              <button data-type="solid" class="preset-button" data-c1="#dddddd">
-                <img src="resources/QRCode.webp" alt="QRCode image" />
+              <button data-type="solid" class="preset-button" data-c1="#24f98b">
+                <img src="resources/QRCode_(5).webp" alt="QRCode image" />
               </button>
             </div>
 
@@ -304,7 +304,14 @@
 
         <canvas id="reader-canvas"></canvas>
 
-        <p id="reader-result" class=""></p>
+        <div class="flex w-full items-start justify-center gap-4">`r`n          <p`r`n            id="reader-result"`r`n            class="w-[70vw] max-w-[70vw] min-w-0 break-all whitespace-pre-wrap"`r`n          ></p>
+          <button
+            id="copy-result-button"
+            class="hidden cursor-pointer h-7 w-7 rounded-md transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+          >
+            <img src="resources/copy.svg" alt="Copy Logo" />
+          </button>
+        </div>
 
         <button
           id="read-qrcode-button"
@@ -325,3 +332,4 @@
     <script src="script.js"></script>
   </body>
 </html>
+
