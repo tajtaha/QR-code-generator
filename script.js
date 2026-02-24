@@ -28,7 +28,7 @@ const readQrcodeButton = document.querySelector("#read-qrcode-button");
 const ReaderUploadInput = document.querySelector("#reader-upload-input");
 const readerCanvas = document.querySelector("#reader-canvas");
 const readerCtx = readerCanvas.getContext("2d");
-const readerResult = document.querySelector("#reader-result");
+const readerResult = document.querySelector("#reader-result-text");
 const copyResultButton = document.querySelector("#copy-result-button");
 const backToCreateQRCode = document.querySelector("#create-qrcode-button");
 const solidColorInput = document.querySelector("#solid-color-input");
@@ -521,7 +521,7 @@ ReaderUploadInput.addEventListener("change", function () {
             a.textContent = cleanUrl;
             a.target = "_blank";
             a.rel = "noopener noreferrer";
-            a.className = "text-blue-300 underline break-all";
+            a.className = "text-blue-300 underline";
             readerResult.appendChild(a);
 
             if (trailingChars) {
@@ -566,7 +566,6 @@ copyResultButton.addEventListener("click", function () {
   navigator.clipboard.writeText(readerResult.textContent);
 });
 
-// copy button for results
 // another settings panel for mobile
 // some other responsive things at the end
 // barcode creator

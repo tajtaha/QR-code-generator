@@ -304,13 +304,19 @@
 
         <canvas id="reader-canvas"></canvas>
 
-        <div class="flex w-full items-start justify-center gap-4">`r`n          <p`r`n            id="reader-result"`r`n            class="w-[70vw] max-w-[70vw] min-w-0 break-all whitespace-pre-wrap"`r`n          ></p>
-          <button
-            id="copy-result-button"
-            class="hidden cursor-pointer h-7 w-7 rounded-md transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+        <div class="flex w-full items-start justify-center">
+          <p
+            id="reader-result"
+            class="w-full max-w-[70ch] whitespace-normal wrap-break-word"
           >
-            <img src="resources/copy.svg" alt="Copy Logo" />
-          </button>
+            <span id="reader-result-text"></span>
+            <button
+              id="copy-result-button"
+              class="hidden cursor-pointer ml-3 h-7 w-7 rounded-md transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+            >
+              <img src="resources/copy.svg" alt="Copy Logo" />
+            </button>
+          </p>
         </div>
 
         <button
@@ -332,4 +338,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-

@@ -12,9 +12,20 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/cli": "^4.2.1",
     "qrcode": "^1.5.4",
-    "tailwindcss": "^4.1.18",
     "vite": "^7.3.1"
-  }
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tajtaha/QR-code-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tajtaha/QR-code-generator/issues"
+  },
+  "homepage": "https://github.com/tajtaha/QR-code-generator#readme"
 }
